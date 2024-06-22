@@ -37,7 +37,7 @@
                                  class="img-fluid">
                         </a>
                         <div  class="post-entry-1-contents">
-                            <a th:href="@{'/blogs/'+${article.id}+ '/' + ${article.seoUrl}}">
+                            <a th:href="@{'/blog/'+${article.id}+ '/' + ${article.seoUrl}}">
                             <h2 th:text="${article.name}" >Lorem ipsum dolor sit amet</a></h2>
                             <span class="meta d-inline-block mb-3" >
                                  <th:block th:text="${#dates.format(article.createdDate, 'MMM dd, yyyy')}">Sep 20, 2019</th:block>
