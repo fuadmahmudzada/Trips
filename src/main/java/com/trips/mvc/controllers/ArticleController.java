@@ -4,6 +4,7 @@ import com.trips.mvc.dtos.articledtos.ArticleDetailDto;
 import com.trips.mvc.dtos.authordtos.AuthorDetailDto;
 import com.trips.mvc.repositories.AuthorRepository;
 import com.trips.mvc.services.ArticleService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,13 +18,16 @@ public class ArticleController {
     @Autowired
     private AuthorRepository authorService;
 
-    @GetMapping("/blog/{id}/{seoUrl}")
-    public String singleBlog(@PathVariable Long id, Model model) {
+    @GetMapping("/blogs/{id}/{seoUrl}")
+    public String singleBlog(@PathVariable Long id, Model model, HttpServletRequest request) {
+        System.out.println("Author: " );
         ArticleDetailDto articleDetailDto = articleService.articleDetail(id);
         AuthorDetailDto authorDetailDto = articleService.articleAuthor(id);
+        String currentUrl = request.getRequestURI();
+//        model.addAttribute("currentUrl", currentUrl);
         model.addAttribute("article", articleDetailDto);
         model.addAttribute("author", authorDetailDto);
-        System.out.println("Author: " + articleDetailDto.getAuthor());
+
         return "singleBlog";
     }
 //    @GetMapping("/author/{id}/{seourl}")
