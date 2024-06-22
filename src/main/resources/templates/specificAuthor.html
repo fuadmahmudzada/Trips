@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section layout:fragment="main">
+    <!-- Start Author Content -->
+    <div class="mu-author-content">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mu-author-image">
+                    <img th:src="${author.imageUrl}" alt="Author Image">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mu-author-info">
+                    <h3 th:text="${author.name}">John Doe</h3>
+                    <p th:text="${author.about}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo suscipit facilis ipsum ullam reiciendis odio error iste neque ratione libero rem accusamus voluptatibus, nihil unde maiores sunt nisi. Assumenda, consectetur.</p>
+
+
+<!--                    <img class="mu-author-sign" src="/authorAssets/images/author-signature.png" alt="Author Signature">-->
+
+                    <div class="mu-author-social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Author Content -->
+</section>
+</body>
+</html>

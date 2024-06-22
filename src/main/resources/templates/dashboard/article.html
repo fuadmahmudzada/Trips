@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org"
+        layout:decorate="~{/dashboard/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div  layout:fragment="container" class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+        For more information about DataTables, please visit the <a target="_blank"
+                                                                   href="https://datatables.net">official DataTables documentation</a>.</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">
+                <a class="btn btn-success btn-sm" href="/admin/article/create">Create</a>
+
+            </h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Description</th>
+                        <th>Content</th>
+                        <th>Photo</th>
+                        <th>Created Date</th>
+                        <th>Updated Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="article : ${articles}">
+                        <td th:text="${article.id}">Tiger Nixon</td>
+                        <td th:text="${article.name}">Tiger Nixon</td>
+                        <td th:text="${article.author.name}">Tiger Nixon</td>
+                        <td th:text="${article.description}">Tiger Nixon</td>
+                        <td th:utext="${article.content}">Tiger Nixon</td>
+                        <td>
+                            <img width="100px" height="100px" th:src="${article.photoUrl}"/>
+                        </td>
+                        <td th:text="${article.createdDate}"></td>
+                        <td th:text="${article.updatedDate}"></td>
+                        <td>
+                            <a th:href="'/admin/article/update/'+${article.id}" class="btn btn-outline-warning btn-sm">Update</a>
+                            <button th:onclick="'remove('+${article.id}+')'" class="btn btn-outline-danger btn-sm">Delete</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Description</th>
+                        <th>Content</th>
+                        <th>Photo</th>
+                        <th>Created Date</th>
+                        <th>Updated Date</th>
+                    </tr>
+                    </tfoot>
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<th:block layout:fragment="myScript">
+    <script>
+        function remove(id){
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: "btn btn-success",
+                    cancelButton: "btn btn-danger"
+                },
+                buttonsStyling: false
+            });
+            swalWithBootstrapButtons.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel!",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    swalWithBootstrapButtons.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+                    window.location="/admin/article/remove/"+id;
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire({
+                        title: "Cancelled",
+                        text: "Your imaginary file is safe :)",
+                        icon: "error"
+                    });
+                }
+            });
+        }
+    </script>
+
+</th:block>
+
+</body>
+</html>
