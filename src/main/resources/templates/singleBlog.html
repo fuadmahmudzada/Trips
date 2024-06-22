@@ -18,7 +18,7 @@
                    <span class="d-block mb-3 text-white" data-aos="fade-up">
         <th:block th:text="${#dates.format(article.createdDate, 'MMM dd, yyyy')}">Sep 20, 2019</th:block>
     <span class="mx-2 text-primary">&bullet;</span>
-    <th:block th:text="'by ' + ${article.author}">by James Miller</th:block>
+    <th:block th:text="'by ' + ${article.author.name}">by James Miller</th:block>
 </span>
 
                         <h1 class="mb-4" data-aos="fade-up" data-aos-delay="100" th:text="${article.name}">Single
@@ -175,7 +175,7 @@
                     <div class="sidebar-box">
                         <div class="categories">
                             <h3>Categories</h3>
-                            <li><a href="#">Creatives <span>(12)</span></a></li>
+                            <li th:text="${article.category.name}"><a th:href="@{""}">Creatives <span>(12)</span></a></li>
                             <li><a href="#">News <span>(22)</span></a></li>
                             <li><a href="#">Design <span>(37)</span></a></li>
                             <li><a href="#">HTML <span>(42)</span></a></li>
