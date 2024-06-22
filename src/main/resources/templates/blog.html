@@ -32,7 +32,7 @@
             <div class="row">
                 <div th:each="article : ${articles}" class="col-lg-4 col-md-6 mb-4">
                     <div  class="post-entry-1 h-100">
-                        <a th:href="@{'/blog/'+${article.id}+ '/' + ${article.seoUrl}}">
+                        <a th:href="@{'/blogs/'+${article.id}+ '/' + ${article.seoUrl}}">
                             <img th:src="${article.photoUrl}" alt="Image"
                                  class="img-fluid">
                         </a>
