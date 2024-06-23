@@ -18,12 +18,12 @@ public class ArticleController {
     @Autowired
     private AuthorRepository authorService;
 
-    @GetMapping("/blog/{id}/{seoUrl}")
+    @GetMapping("/blogs/{id}/{seoUrl}")
     public String singleBlog(@PathVariable Long id, Model model, HttpServletRequest request) {
         System.out.println("Author: " );
         ArticleDetailDto articleDetailDto = articleService.articleDetail(id);
         AuthorDetailDto authorDetailDto = articleService.articleAuthor(id);
-        String currentUrl = request.getRequestURI();
+//        String currentUrl = request.getRequestURI();
 //        model.addAttribute("currentUrl", currentUrl);
         model.addAttribute("article", articleDetailDto);
         model.addAttribute("author", authorDetailDto);

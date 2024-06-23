@@ -1,8 +1,8 @@
 <!doctype html>
 <html
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org">
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org">
 
 <head>
     <title>Trips &mdash; W ebsite Template by Colorlib</title>
@@ -41,7 +41,6 @@
     </div>
 
 
-
     <header class="site-navbar site-navbar-target" role="banner">
 
         <div class="container">
@@ -58,8 +57,9 @@
                 <div class="col-9  text-right">
 
 
-                    <span class="d-inline-block d-lg-none"><a href="#" class="text-white site-menu-toggle js-menu-toggle py-5 text-white"><span class="icon-menu h3 text-white"></span></a></span>
-
+                    <span class="d-inline-block d-lg-none"><a href="#"
+                                                              class="text-white site-menu-toggle js-menu-toggle py-5 text-white"><span
+                            class="icon-menu h3 text-white"></span></a></span>
 
 
                     <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
@@ -80,7 +80,7 @@
     </header>
 
 
-<section layout:fragment="main"></section>
+    <section layout:fragment="main"></section>
 
 
     <footer class="site-footer bg-light">
@@ -123,10 +123,12 @@
                         </div>
                         <div class="col-lg-6">
                             <h2 class="footer-heading mb-4">Newsletter</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt odio iure animi ullam quam, deleniti rem!</p>
-                            <form action="#" class="d-flex" >
-                                <input type="text" class="form-control mr-3" placeholder="Email">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt odio iure animi ullam
+                                quam, deleniti rem!</p>
+                            <form action="/subscription" id="contactForm" method="post" class="d-flex">
+                                <input type="email" class="form-control mr-3" name="email" placeholder="Email">
                                 <input type="submit" value="Send" class="btn btn-primary">
+
                             </form>
                         </div>
 
@@ -138,7 +140,10 @@
                     <div class="border-top pt-5">
                         <p>
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                            All rights reserved | This template is made with <i class="icon-heart text-danger"
+                                                                                aria-hidden="true"></i> by <a
+                                href="https://colorlib.com" target="_blank">Colorlib</a>
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         </p>
                     </div>
@@ -166,6 +171,22 @@
 <script th:src="@{/js/aos.js}"></script>
 
 <script th:src="@{/js/main.js}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+        Swal.fire({
+            icon: "success",
+            title: "Success!",
+            text: "Your message has been sent.",
+            footer: '<a href="#">Why do I have this issue?</a>'
+        }).then(() => {
+            form.submit(); // Submit the form programmatically after the alert
+        });
+    });
+</script>
 
 </body>
 
