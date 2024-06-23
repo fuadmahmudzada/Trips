@@ -6,6 +6,7 @@ import com.trips.mvc.dtos.articledtos.ArticleDetailDto;
 import com.trips.mvc.dtos.articledtos.ArticleHomeDto;
 import com.trips.mvc.dtos.articledtos.ArticleUpdateDto;
 import com.trips.mvc.dtos.authordtos.AuthorDetailDto;
+import com.trips.mvc.dtos.authordtos.AuthorHomeDto;
 
 import java.util.List;
 
@@ -17,6 +18,8 @@ public interface ArticleService {
     ArticleUpdateDto findUpdateArticle(Long id);
     void removeArticle(Long articleId);
     ArticleDetailDto articleDetail(Long id);
-    List<ArticleHomeDto> getHomeArticles();
-    AuthorDetailDto articleAuthor(Long id);
+    List<ArticleHomeDto>    getHomeArticles();
+    AuthorHomeDto articleAuthor(Long id);
+    List<ArticleHomeDto> getCategoryArticles(Long id);
+    List<ArticleHomeDto> getAuthorArticles(Long id);
 }

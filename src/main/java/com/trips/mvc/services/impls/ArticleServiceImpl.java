@@ -1,6 +1,5 @@
 package com.trips.mvc.services.impls;
 
-import com.trips.mvc.controllers.ArticleController;
 import com.trips.mvc.dtos.ArticleDto;
 import com.trips.mvc.dtos.articledtos.ArticleCreateDto;
 import com.trips.mvc.dtos.articledtos.ArticleDetailDto;
@@ -8,7 +7,9 @@ import com.trips.mvc.dtos.articledtos.ArticleHomeDto;
 import com.trips.mvc.dtos.articledtos.ArticleUpdateDto;
 import com.trips.mvc.dtos.authordtos.AuthorDetailDto;
 import com.trips.mvc.dtos.authordtos.AuthorDto;
+
 import com.trips.mvc.dtos.authordtos.AuthorHomeDto;
+import com.trips.mvc.dtos.categorydtos.CategoryHomeDto;
 import com.trips.mvc.helpers.SeoHelper;
 import com.trips.mvc.models.Article;
 import com.trips.mvc.models.ArticleCategory;
@@ -19,13 +20,12 @@ import com.trips.mvc.repositories.CategoryRepository;
 import com.trips.mvc.services.ArticleService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -136,6 +136,10 @@ public class ArticleServiceImpl implements ArticleService {
             AuthorDto authorDto = new AuthorDto();
             authorDto.setId(article.getAuthor().getId());
             authorDto.setName(article.getAuthor().getName());
+            authorDto.setImageUrl(article.getAuthor().getImageUrl());
+            authorDto.setAbout(article.getAuthor().getAbout());
+            authorDto.setSeoUrl(article.getAuthor().getSeoUrl());
+
             dto.setAuthorDto(authorDto);
 
             articleHomeDtoList.add(dto);
@@ -144,10 +148,73 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public AuthorDetailDto articleAuthor(Long id) {
+    public AuthorHomeDto articleAuthor(Long id) {
         Author author = articleRepository.findById(id).orElseThrow().getAuthor();
-        AuthorDetailDto authorDetailDto = modelMapper.map(author, AuthorDetailDto.class);
-        return authorDetailDto;
+        AuthorHomeDto authorHomeDto = modelMapper.map(author, AuthorHomeDto.class);
+        return authorHomeDto;
+    }
+
+    @Override
+    public List<ArticleHomeDto> getCategoryArticles(Long id/*umumi blog sehifesindeki articlenin id sidir bu*/) {
+        List<Article> articleList = articleRepository.findAll().stream()
+                .filter(x -> !x.isDeleted() && Objects.equals(x.getArticleCategory().getId()/*basadaki articlenin hazirkinin idsi*/,id )).toList();
+        //niye equals isletdim
+        List<ArticleHomeDto> categoryArticlesDtoList = new ArrayList<>();
+        for (Article article : articleList) {
+            ArticleHomeDto dto = new ArticleHomeDto();
+            dto.setId(article.getId());
+            dto.setName(article.getName());
+            dto.setDescription(article.getDescription());
+            dto.setPhotoUrl(article.getPhotoUrl());
+            dto.setCreatedDate(article.getCreatedDate());
+            dto.setSeoUrl(article.getSeoUrl());
+            CategoryHomeDto categoryHomeDto = new CategoryHomeDto();
+            categoryHomeDto.setName(article.getArticleCategory().getName());
+            dto.setCategoryHomeDto(categoryHomeDto);
+            AuthorDto authorDto = new AuthorDto();
+            authorDto.setId(article.getAuthor().getId());
+            authorDto.setName(article.getAuthor().getName());
+            authorDto.setImageUrl(article.getAuthor().getImageUrl());
+            authorDto.setAbout(article.getAuthor().getAbout());
+            authorDto.setSeoUrl(article.getAuthor().getSeoUrl());
+
+            dto.setAuthorDto(authorDto);
+
+            categoryArticlesDtoList.add(dto);
+        }
+        return categoryArticlesDtoList;
+    }
+
+    @Override
+    public List<ArticleHomeDto> getAuthorArticles(Long id) {
+        List<Article> articleList = articleRepository.findAll().stream()
+                .filter(x -> !x.isDeleted() && Objects.equals(x.getAuthor().getId()/*basadaki articlenin hazirkinin idsi*/,id )).toList();
+        //niye equals isletdim
+        List<ArticleHomeDto> authorArticleDtoList = new ArrayList<>();
+        for (Article article : articleList) {
+            ArticleHomeDto dto = new ArticleHomeDto();
+            dto.setId(article.getId());
+            dto.setName(article.getName());
+            dto.setDescription(article.getDescription());
+            dto.setPhotoUrl(article.getPhotoUrl());
+            dto.setCreatedDate(article.getCreatedDate());
+            dto.setSeoUrl(article.getSeoUrl());
+            CategoryHomeDto categoryHomeDto = new CategoryHomeDto();
+            categoryHomeDto.setName(article.getArticleCategory().getName());
+            dto.setCategoryHomeDto(categoryHomeDto);
+            AuthorDto authorDto = new AuthorDto();
+            authorDto.setId(article.getAuthor().getId());
+            authorDto.setName(article.getAuthor().getName());
+            authorDto.setImageUrl(article.getAuthor().getImageUrl());
+            authorDto.setAbout(article.getAuthor().getAbout());
+authorDto.setSeoUrl(article.getAuthor().getSeoUrl());
+
+            dto.setAuthorDto(authorDto);
+
+            authorArticleDtoList.add(dto);
+        }
+        return authorArticleDtoList;
+
     }
 
 //    @Override

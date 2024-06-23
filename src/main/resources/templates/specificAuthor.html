@@ -14,14 +14,32 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="mu-author-image">
-                    <img th:src="${author.imageUrl}" alt="Author Image">
+                    <img th:src="${authorArticles.get(0).authorDto.imageUrl}" alt="Author Image">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="mu-author-info">
-                    <h3 th:text="${author.name}">John Doe</h3>
-                    <p th:text="${author.about}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo suscipit facilis ipsum ullam reiciendis odio error iste neque ratione libero rem accusamus voluptatibus, nihil unde maiores sunt nisi. Assumenda, consectetur.</p>
+                    <h3 th:text="${authorArticles.get(0).authorDto.name}">John Doe</h3>
+                    <p th:text="${authorArticles.get(0).authorDto.about}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo suscipit facilis ipsum ullam reiciendis odio error iste neque ratione libero rem accusamus voluptatibus, nihil unde maiores sunt nisi. Assumenda, consectetur.</p>
+                    <div class="row">
+                        <div th:each="article : ${authorArticles}" class="col-lg-4 col-md-6 mb-4">
+                            <div  class="post-entry-1 h-100">
+                                <a th:href="@{'/blogs/'+${article.id}+ '/' + ${article.seoUrl}}">
+                                    <img th:src="${article.photoUrl}" alt="Image"
+                                         class="img-fluid">
+                                </a>
+                                <div  class="post-entry-1-contents">
+                                    <a th:href="@{'/blogs/'+${article.id}+ '/' + ${article.seoUrl}}">
+                                        <h2 th:text="${article.name}" >Lorem ipsum dolor sit amet</a></h2>
+                                    <span class="meta d-inline-block mb-3" >
+                                 <th:block th:text="${#dates.format(article.createdDate, 'MMM dd, yyyy')}">Sep 20, 2019</th:block>
 
+                                <span class="mx-2">by</span>
+                                <a th:text="${article.authorDto.name}" th:href="@{'/author/'+ ${article.authorDto.getId()} +'/'+ ${article.authorDto.seoUrl}}">Admin</a></span>
+                                    <p  th:text="${article.description}"> </p>
+                                </div>
+                            </div>
+                        </div>
 
 <!--                    <img class="mu-author-sign" src="/authorAssets/images/author-signature.png" alt="Author Signature">-->
 
@@ -37,6 +55,7 @@
         </div>
     </div>
     <!-- End Author Content -->
+    </div>
 </section>
 </body>
 </html>

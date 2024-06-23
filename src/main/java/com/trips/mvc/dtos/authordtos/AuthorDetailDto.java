@@ -1,5 +1,6 @@
 package com.trips.mvc.dtos.authordtos;
 
+import com.trips.mvc.dtos.articledtos.ArticleHomeDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +13,6 @@ public class AuthorDetailDto {
     private String description;
     private String imageUrl;
     private String about;
-
+private ArticleHomeDto articleHomeDto;
 
 }

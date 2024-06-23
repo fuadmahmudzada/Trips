@@ -19,7 +19,7 @@ public class ArticleCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-
+    private String seoUrl;
 
     @OneToMany(mappedBy = "articleCategory")
     private List<Article> articles= new ArrayList<>();
