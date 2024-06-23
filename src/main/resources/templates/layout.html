@@ -128,6 +128,7 @@
                             <form action="/subscription" id="contactForm" method="post" class="d-flex">
                                 <input type="email" class="form-control mr-3" name="email" placeholder="Email">
                                 <input type="submit" value="Send" class="btn btn-primary">
+
                             </form>
                         </div>
 
@@ -171,6 +172,7 @@
 
 <script th:src="@{/js/main.js}"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     const form = document.getElementById('contactForm');
     form.addEventListener('submit', function(event) {
@@ -180,11 +182,8 @@
             title: "Success!",
             text: "Your message has been sent.",
             footer: '<a href="#">Why do I have this issue?</a>'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Optionally, you can redirect or perform some other actions after the alert
-                form.submit(); // Submit the form programmatically if needed
-            }
+        }).then(() => {
+            form.submit(); // Submit the form programmatically after the alert
         });
     });
 </script>

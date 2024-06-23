@@ -23,7 +23,7 @@ public class ArticleController {
         System.out.println("Author: " );
         ArticleDetailDto articleDetailDto = articleService.articleDetail(id);
         AuthorDetailDto authorDetailDto = articleService.articleAuthor(id);
-        String currentUrl = request.getRequestURI();
+//        String currentUrl = request.getRequestURI();
 //        model.addAttribute("currentUrl", currentUrl);
         model.addAttribute("article", articleDetailDto);
         model.addAttribute("author", authorDetailDto);
