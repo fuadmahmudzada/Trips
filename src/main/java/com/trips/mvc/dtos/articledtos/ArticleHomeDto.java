@@ -2,7 +2,8 @@ package com.trips.mvc.dtos.articledtos;
 
 
 import com.trips.mvc.dtos.authordtos.AuthorDto;
-import com.trips.mvc.dtos.authordtos.AuthorHomeDto;
+
+import com.trips.mvc.dtos.categorydtos.CategoryHomeDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,6 @@ public class ArticleHomeDto {
     private String photoUrl;
     private Date createdDate;
     private String seoUrl;
-
+private CategoryHomeDto categoryHomeDto;
     private AuthorDto authorDto;
 }

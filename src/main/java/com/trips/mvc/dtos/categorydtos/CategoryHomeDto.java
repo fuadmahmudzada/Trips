@@ -7,7 +7,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ArticleCategoryDto {
+@NoArgsConstructor
+@AllArgsConstructor
+public class CategoryHomeDto {
     private Long id;
     private String name;
     private String seoUrl;
