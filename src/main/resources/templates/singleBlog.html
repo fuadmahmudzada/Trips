@@ -176,7 +176,13 @@
                         <div class="categories">
                             <h3>Categories</h3>
 
-                            <li> </li>
+                            <li>
+                                <a  th:href="@{'/specificCategory/' + ${article.getCategory().getId()} + '/' + ${article.getCategory().getSeoUrl()}}">
+                                    <th:block th:text="${article.category.name}">Creatives</th:block>
+                                    <span th:text="'(' + ${categoryArticles.size()+')'}">(12)
+                                    </span>
+                                </a>
+                            </li>
 
 <!--                            <li><a href="#">News <span>(22)</span></a></li>-->
 <!--                            <li><a href="#">Design <span>(37)</span></a></li>-->
