@@ -1,17 +1,10 @@
 package com.trips.mvc.services.impls;
 
-import com.trips.mvc.dtos.ArticleDto;
-import com.trips.mvc.dtos.articledtos.ArticleCreateDto;
-import com.trips.mvc.dtos.articledtos.ArticleDetailDto;
-import com.trips.mvc.dtos.articledtos.ArticleUpdateDto;
 import com.trips.mvc.dtos.authordtos.AuthorCreateDto;
 import com.trips.mvc.dtos.authordtos.AuthorDetailDto;
 import com.trips.mvc.dtos.authordtos.AuthorDto;
 import com.trips.mvc.dtos.authordtos.AuthorUpdateDto;
-import com.trips.mvc.dtos.categorydtos.ArticleCategoryDto;
 import com.trips.mvc.helpers.SeoHelper;
-import com.trips.mvc.models.Article;
-import com.trips.mvc.models.ArticleCategory;
 import com.trips.mvc.models.Author;
 import com.trips.mvc.repositories.ArticleRepository;
 import com.trips.mvc.repositories.AuthorRepository;
@@ -21,7 +14,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
