@@ -1,11 +1,10 @@
 package com.trips.mvc.services;
 
-import com.trips.mvc.dtos.ArticleDto;
+import com.trips.mvc.dtos.articledtos.ArticleDto;
 import com.trips.mvc.dtos.articledtos.ArticleCreateDto;
 import com.trips.mvc.dtos.articledtos.ArticleDetailDto;
 import com.trips.mvc.dtos.articledtos.ArticleHomeDto;
 import com.trips.mvc.dtos.articledtos.ArticleUpdateDto;
-import com.trips.mvc.dtos.authordtos.AuthorDetailDto;
 import com.trips.mvc.dtos.authordtos.AuthorHomeDto;
 
 import java.util.List;

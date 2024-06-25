@@ -1,8 +1,7 @@
-package com.trips.mvc.dtos;
+package com.trips.mvc.dtos.articledtos;
 
 import com.trips.mvc.dtos.authordtos.AuthorDto;
 import com.trips.mvc.dtos.categorydtos.ArticleCategoryDto;
-import com.trips.mvc.dtos.categorydtos.CategoryCreateDto;
 import lombok.Getter;
 import lombok.Setter;
 

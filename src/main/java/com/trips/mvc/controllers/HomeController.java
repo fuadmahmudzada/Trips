@@ -2,7 +2,9 @@ package com.trips.mvc.controllers;
 
 import com.trips.mvc.dtos.articledtos.ArticleHomeDto;
 import com.trips.mvc.dtos.authordtos.AuthorDetailDto;
+import com.trips.mvc.dtos.testimonydtos.TestimonyDto;
 import com.trips.mvc.services.ArticleService;
+import com.trips.mvc.services.TestimonyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +16,13 @@ import java.util.List;
 @Controller
 public class HomeController {
     @Autowired
+    private TestimonyService testimonyService;
+    @Autowired
     private ArticleService articleService;
     @GetMapping("/")
-    public String home() {
+    public String home(Model model) {
+        List<List<TestimonyDto>> testimonyDtoList = testimonyService.getHomeTestimonials();
+        model.addAttribute("testimonials", testimonyDtoList);
         return "home";
     }
 
@@ -32,6 +38,8 @@ public class HomeController {
 
     @GetMapping("/contact")
     public String contact(Model model) {
+        List<List<TestimonyDto>> testimonyDtoList = testimonyService.getHomeTestimonials();
+        model.addAttribute("testimonials", testimonyDtoList);
         return "contact";
     }
 

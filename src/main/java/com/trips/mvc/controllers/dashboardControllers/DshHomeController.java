@@ -1,6 +1,8 @@
 package com.trips.mvc.controllers.dashboardControllers;
 
-import com.trips.mvc.dtos.ArticleDto;
+import com.trips.mvc.dtos.articledtos.ArticleDto;
+import com.trips.mvc.dtos.testimonydtos.TestimonyCreateDto;
+import com.trips.mvc.dtos.testimonydtos.TestimonyDto;
 import com.trips.mvc.dtos.articledtos.ArticleCreateDto;
 import com.trips.mvc.dtos.articledtos.ArticleUpdateDto;
 import com.trips.mvc.dtos.authordtos.AuthorCreateDto;
@@ -8,9 +10,12 @@ import com.trips.mvc.dtos.authordtos.AuthorDto;
 import com.trips.mvc.dtos.authordtos.AuthorUpdateDto;
 import com.trips.mvc.dtos.categorydtos.ArticleCategoryDto;
 import com.trips.mvc.dtos.categorydtos.CategoryCreateDto;
+import com.trips.mvc.dtos.testimonydtos.TestimonyUpdateDto;
 import com.trips.mvc.services.ArticleService;
 import com.trips.mvc.services.AuthorService;
 import com.trips.mvc.services.CategoryService;
+import com.trips.mvc.services.TestimonyService;
+import groovyjarjarantlr4.v4.codegen.model.chunk.ListLabelRef;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,9 +35,12 @@ public class DshHomeController {
     private ArticleService articleService;
     @Autowired
     private AuthorService authorService;
+    @Autowired
+    private TestimonyService testimonyService;
 
     @GetMapping("/admin")
     public String index(){
+
         return "dashboard/home";
     }
 
@@ -140,4 +148,44 @@ public class DshHomeController {
 
     }
 
+  @GetMapping("/admin/testimonials")
+    public String testimonial(Model model){
+      List<TestimonyDto> testimonyDtoList = testimonyService.getTestimonials();
+      model.addAttribute("testimonials", testimonyDtoList);
+        return "dashboard/testimony";
+    }
+    @GetMapping("/admin/testimonials/create")
+    public String testimonyCreate(){
+        return "dashboard/testimonyCreate";
+    }
+    @PostMapping("/admin/testimonials/create")
+    public String testimonyCreate(@ModelAttribute TestimonyCreateDto testimonyCreateDto){
+        testimonyService.add(testimonyCreateDto);
+        return "redirect:/admin/testimonials";
+    }
+
+    @GetMapping("/admin/testimonials/update/{id}")
+    public String updateTestimony(@PathVariable Long id, Model model) {
+        TestimonyUpdateDto testimonyUpdateDto = testimonyService.findUpdateTestimony(id);
+
+        model.addAttribute("testimony", testimonyUpdateDto);
+        return "dashboard/testimonyUpdate";
+    }
+    @PostMapping("/admin/testimonials/update")
+    public String updateTestimony(@ModelAttribute TestimonyUpdateDto testimonyUpdateDto) {
+
+        testimonyService.updateTestimony(testimonyUpdateDto);
+
+        return "redirect:/admin/testimonials";
+    }
+
+    @GetMapping("/admin/testimonials/remove/{id}")
+    public String removeTestimony(@PathVariable Long id) {
+        {
+            testimonyService.removeTestimony(id);
+            return "redirect:/admin/testimonials";
+
+        }
+
+    }
 }

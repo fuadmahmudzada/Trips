@@ -99,66 +99,48 @@
                 </div>
             </div>
 
-            <div class="owl-carousel slide-one-item">
-                <div class="row">
-                    <div class="col-md-6">
-
-                        <div class="testimonial-39191 d-flex">
-                            <div class="mr-4">
-                                <img src="images/person_1.jpg" alt="Image" class="img-fluid">
+            <div class="owl-carousel slide-one-item"  >
+                <div class="row" th:each="testiomonial, iStat :${testimonials} "><!-- bundan ikiye nisbet qeder-->
+                    <!--asdf-->
+                    <div   class="col-md-6 mb-4"><!--bundand iki dene olmaliridir-->
+                        <div class="testimonial-39191 d-flex" >
+                            <div class="mr-4" style="width: 300px">
+                                <img th:src="${testiomonial.get(0).photoUrl}" alt="Image" class="img-fluid">
                             </div>
                             <div>
-                                <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, accusamus, facilis! Placeat praesentium alias porro aperiam facilis accusantium veniam?&rdquo;</blockquote>
-                                <p>&mdash; John Doe</p>
+                                <blockquote >&ldquo;
+                                    <th:block th:text="${testiomonial.get(0).content}"></th:block>
+                                    &rdquo;</blockquote>
+                                <p >&mdash;
+                                    <th:block th:text="${testiomonial.get(0).fullName}"></th:block>
+                                </p>
                             </div>
                         </div>
-
                     </div>
-
-                    <div class="col-md-6">
-
-                        <div class="testimonial-39191 d-flex">
-                            <div class="mr-4">
-                                <img src="images/person_2.jpg" alt="Image" class="img-fluid">
-                            </div>
-                            <div>
-                                <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, accusamus, facilis! Placeat praesentium alias porro aperiam facilis accusantium veniam?&rdquo;</blockquote>
-                                <p>&mdash; John Doe</p>
+                    <th:block th:if="${testiomonial.size() ==2}">
+                        <div   class="col-md-6 mb-4"><!--bundand iki dene olmaliridir-->
+                            <div class="testimonial-39191 d-flex" >
+                                <div class="mr-4" style="width: 300px">
+                                    <img th:src="${testiomonial.get(1).photoUrl}" alt="Image" class="img-fluid">
+                                </div>
+                                <div>
+                                    <blockquote >&ldquo;
+                                        <th:block th:text="${testiomonial.get(1).content}"></th:block>
+                                        &rdquo;</blockquote>
+                                    <p >&mdash;
+                                        <th:block th:text="${testiomonial.get(1).fullName}"></th:block>
+                                    </p>
+                                </div>
                             </div>
                         </div>
+                    </th:block>
 
-                    </div>
+
+
+
                 </div>
 
-                <div class="row">
-                    <div class="col-md-6">
 
-                        <div class="testimonial-39191 d-flex">
-                            <div class="mr-4">
-                                <img src="images/person_1.jpg" alt="Image" class="img-fluid">
-                            </div>
-                            <div>
-                                <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, accusamus, facilis! Placeat praesentium alias porro aperiam facilis accusantium veniam?&rdquo;</blockquote>
-                                <p>&mdash; John Doe</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-6">
-
-                        <div class="testimonial-39191 d-flex">
-                            <div class="mr-4">
-                                <img src="images/person_2.jpg" alt="Image" class="img-fluid">
-                            </div>
-                            <div>
-                                <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, accusamus, facilis! Placeat praesentium alias porro aperiam facilis accusantium veniam?&rdquo;</blockquote>
-                                <p>&mdash; John Doe</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
 
             </div>
 
