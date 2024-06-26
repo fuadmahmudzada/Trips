@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailServiceImpl implements EmailService {
     @Autowired
+    //QUALIFIER
+    //QUALIFIER
     private JavaMailSender mailSender;
 
     @Override

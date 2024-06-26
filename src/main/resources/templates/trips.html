@@ -37,74 +37,20 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
+                <div class="col-lg-4 col-md-6 mb-4" th:each="trip : ${trips}" data-aos="fade-up">
                     <div class="listing-item">
                         <div class="listing-image">
-                            <img src="images/img_1.jpg" alt="Image" class="img-fluid">
-                        </div>
-                        <div class="listing-item-content">
-                            <a class="px-3 mb-3 category bg-primary" href="#">$200.00</a>
-                            <h2 class="mb-1"><a href="trip-single.html">Dignissimos debitis</a></h2>
-                        </div>
-                    </div>
-                </div>
+                            <a style="z-index: 200" th:href="@{'/trips/tripDetail/' +${trip.seoUrl} + '/' + ${trip.id}}">
+                                <img th:src="${trip.getImageUrl()}" alt="Image" class="img-fluid"/>
 
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
-                    <div class="listing-item">
-                        <div class="listing-image">
-                            <img src="images/img_2.jpg" alt="Image" class="img-fluid">
-                        </div>
-                        <div class="listing-item-content">
-                            <a class="px-3 mb-3 category bg-primary" href="#">$390.00</a>
-                            <h2 class="mb-1"><a href="trip-single.html">Consectetur adipisicing</a></h2>
-                        </div>
-                    </div>
-                </div>
+                            </a>
 
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
-                    <div class="listing-item">
-                        <div class="listing-image">
-                            <img src="images/img_3.jpg" alt="Image" class="img-fluid">
                         </div>
                         <div class="listing-item-content">
-                            <a class="px-3 mb-3 category bg-primary" href="#">$180.00</a>
-                            <h2 class="mb-1"><a href="trip-single.html">Temporibus aperiam</a></h2>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
-                    <div class="listing-item">
-                        <div class="listing-image">
-                            <img src="images/img_4.jpg" alt="Image" class="img-fluid">
-                        </div>
-                        <div class="listing-item-content">
-                            <a class="px-3 mb-3 category bg-primary" href="#">$600.00</a>
-                            <h2 class="mb-1"><a href="trip-single.html">Expedita fugiat</a></h2>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
-                    <div class="listing-item">
-                        <div class="listing-image">
-                            <img src="images/img_5.jpg" alt="Image" class="img-fluid">
-                        </div>
-                        <div class="listing-item-content">
-                            <a class="px-3 mb-3 category bg-primary" href="#">$330.00</a>
-                            <h2 class="mb-1"><a href="trip-single.html">Consectetur adipisicing</a></h2>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
-                    <div class="listing-item">
-                        <div class="listing-image">
-                            <img src="images/img_6.jpg" alt="Image" class="img-fluid">
-                        </div>
-                        <div class="listing-item-content">
-                            <a class="px-3 mb-3 category bg-primary" href="#">$450.00</a>
-                            <h2 class="mb-1"><a href="trip-single.html">Consectetur Amet</a></h2>
+                            <a class="px-3 mb-3 category bg-primary"  href="#">$
+                            <th:block th:text="${trip.price}" ></th:block>
+                            </a>
+                            <h2 class="mb-1"><a th:href="@{'/trips/tripDetail/' +${trip.seoUrl} + '/' + ${trip.id}}" th:text="${trip.name}">Dignissimos debitis</a></h2>
                         </div>
                     </div>
                 </div>
@@ -136,5 +82,13 @@
 
 
 </section>
+<script>
+    document.querySelectorAll('.listing-item a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = link.getAttribute('href');
+        });
+    });
+</script>
 </body>
 </html>

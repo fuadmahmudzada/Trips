@@ -16,8 +16,13 @@
             <div class="form-group">
                 <input th:value="${article.name}" class="form-control" type="text" placeholder="Title" name="name" />
             </div>
+<!--            <div class="form-group">-->
+<!--                <input th:value="${article.author}" class="form-control" type="text" placeholder="Author" name="author" />-->
+<!--            </div>-->
             <div class="form-group">
-                <input th:value="${article.author}" class="form-control" type="text" placeholder="Author" name="author" />
+                <select name="author.id"  class="form-control" >
+                    <option th:selected="${article.getAuthor().getId()}==${author.id}" th:each="author : ${authors}" th:text="${author.name}" th:value="${author.id}"></option>
+                </select>
             </div>
             <div class="form-group">
                 <input th:value="${article.description}" class="form-control" type="text" placeholder="Description" name="description" />
@@ -25,7 +30,7 @@
             <input th:value="${article.id}" class="form-control" type="hidden" placeholder="Title" name="id" />
 
             <div class="form-group">
-                <textarea th:value="${article.content}" id="myInput" class="form-control" type="text" placeholder="Content" name="content" ></textarea>
+                <textarea th:value="${data}"  th:text="${data}" id="myInput" class="form-control" type="text" placeholder="Content" name="content" ></textarea>
             </div>
 
             <div class="form-group">

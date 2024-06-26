@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org"
+        layout:decorate="~{/dashboard/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Category create </title>
+</head>
+
+<body>
+<div layout:fragment="container" class="container-fluid">
+    <div>
+        <form action="/admin/trip/update" method="post">
+            <div class="form-group">
+                <input th:value="${trip.name}" class="form-control" type="text" placeholder="Title" name="name" />
+            </div>
+
+            <div class="form-group">
+                <input th:value="${trip.description}" class="form-control" type="text" placeholder="Description" name="description" />
+            </div>
+            <input th:value="${trip.id}" class="form-control" type="hidden" placeholder="id" name="id" />
+            <div class="form-group" >
+                <input  type="number" th:value="${trip.price}" name="price" placeholder="Price" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <textarea  id="myInput" th:text="${datas}"  class="form-control" type="text" placeholder="Content" name="content" ></textarea>
+            </div>
+
+            <div class="form-group">
+                <input th:value="${trip.imageUrl}" class="form-control" type="text" placeholder="photoUrl" name="imageUrl" />
+            </div>
+            <div class="form-group" >
+                <input th:value="${trip.backImageUrl}" type="text" name="backImageUrl" placeholder="Background Image Url" class="form-control" />
+                //Articlecreatedto nun icerisindeki fieldlere esasen isley
+            </div>
+
+            <input type="submit" value="Update" class="btn btn-warning" />
+        </form>
+    </div>
+</div>
+<script>
+    const data = myInput.getData();
+</script>
+</body>
+
+</html>

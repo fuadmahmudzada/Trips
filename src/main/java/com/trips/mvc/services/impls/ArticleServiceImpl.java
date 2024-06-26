@@ -70,7 +70,7 @@ public class ArticleServiceImpl implements ArticleService {
     public void updateArticle(ArticleUpdateDto articleUpdateDto) {
         Article findArticle = articleRepository.findById(articleUpdateDto.getId()).orElseThrow();
         ArticleCategory category = categoryRepository.findById(articleUpdateDto.getCategoryId()).orElseThrow();
-
+Author author = authorRepository.findById(articleUpdateDto.getAuthor().getId()).orElseThrow();
         findArticle.setId(articleUpdateDto.getId());
         findArticle.setName(articleUpdateDto.getName());
 //        findArticle.setAuthor(articleUpdateDto.getAuthor());
@@ -83,6 +83,7 @@ public class ArticleServiceImpl implements ArticleService {
         findArticle.setUpdatedDate(new Date());
         findArticle.setPhotoUrl(articleUpdateDto.getPhotoUrl());
         findArticle.setArticleCategory(category);
+        findArticle.setAuthor(author);
 //        findArticle.setAuthor(author);
         articleRepository.saveAndFlush(findArticle);
     }
