@@ -6,9 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -36,4 +35,10 @@ public class Article {
 
     @ManyToOne
     private Author author;
+
+    @ManyToMany
+    @JoinTable(name = "article_tags",
+            joinColumns = @JoinColumn(name = "article_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private Set<Tag> tags =new HashSet();
 }
