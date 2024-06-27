@@ -17,12 +17,13 @@ import com.trips.mvc.repositories.TripRepository;
 import com.trips.mvc.services.TripService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 @Service
 public class TripServiceImpl implements TripService {
@@ -123,5 +124,41 @@ findTrip.setPrice(tripUpdateDto.getPrice());
 
         return tripHomeDtoList1;
 
+    }
+    @Override
+    public Page<TripDto> findPaginated(Pageable pageable) {
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+        List<Trip> tripList = tripRepository.findAll().stream()
+                .filter(x -> !x.isDeleted()).toList();
+        List<TripDto> articleHomeDtoList = new ArrayList<>();
+        List<TripDto> list;
+        for (Trip trip : tripList) {
+            TripDto dto = new TripDto();
+            dto.setId(trip.getId());
+            dto.setName(trip.getName());
+            dto.setDescription(trip.getDescription());
+            dto.setImageUrl(trip.getImageUrl());
+            dto.setCreatedDate(trip.getCreatedDate());
+            dto.setSeoUrl(trip.getSeoUrl());
+            dto.setBakcImageUrl(trip.getBackImageUrl());
+
+
+
+
+            articleHomeDtoList.add(dto);
+        }
+        if (articleHomeDtoList.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, articleHomeDtoList.size());
+            list = articleHomeDtoList.subList(startItem, toIndex);
+        }
+
+        Page<TripDto> bookPage
+                = new PageImpl<TripDto>(list, PageRequest.of(currentPage, pageSize), articleHomeDtoList.size());
+
+        return bookPage;
     }
 }

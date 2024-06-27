@@ -6,6 +6,9 @@ import com.trips.mvc.dtos.articledtos.ArticleDetailDto;
 import com.trips.mvc.dtos.articledtos.ArticleHomeDto;
 import com.trips.mvc.dtos.articledtos.ArticleUpdateDto;
 import com.trips.mvc.dtos.authordtos.AuthorHomeDto;
+import com.trips.mvc.models.Article;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -21,4 +24,6 @@ public interface ArticleService {
     AuthorHomeDto articleAuthor(Long id);
     List<ArticleHomeDto> getCategoryArticles(Long id);
     List<ArticleHomeDto> getAuthorArticles(Long id);
+
+    Page<ArticleHomeDto> findPaginated(Pageable pageable);
 }
