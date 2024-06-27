@@ -14,4 +14,5 @@ public class ArticleCreateDto {
 
     private Long categoryId;
     private Long authorId;
+    private Long tagId;
 }

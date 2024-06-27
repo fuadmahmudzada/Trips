@@ -2,6 +2,8 @@ package com.trips.mvc.dtos.articledtos;
 
 import com.trips.mvc.dtos.authordtos.AuthorDto;
 import com.trips.mvc.dtos.categorydtos.ArticleCategoryDto;
+import com.trips.mvc.dtos.tagdtos.TagCreateDto;
+import com.trips.mvc.dtos.tagdtos.TagDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,4 +24,5 @@ public class ArticleDto {
 
     private ArticleCategoryDto category;
     private AuthorDto author;
+    private TagDto tag;
 }
