@@ -19,12 +19,10 @@ import com.trips.mvc.repositories.CategoryRepository;
 import com.trips.mvc.services.ArticleService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -70,7 +68,7 @@ public class ArticleServiceImpl implements ArticleService {
     public void updateArticle(ArticleUpdateDto articleUpdateDto) {
         Article findArticle = articleRepository.findById(articleUpdateDto.getId()).orElseThrow();
         ArticleCategory category = categoryRepository.findById(articleUpdateDto.getCategoryId()).orElseThrow();
-Author author = authorRepository.findById(articleUpdateDto.getAuthor().getId()).orElseThrow();
+        Author author = authorRepository.findById(articleUpdateDto.getAuthor().getId()).orElseThrow();
         findArticle.setId(articleUpdateDto.getId());
         findArticle.setName(articleUpdateDto.getName());
 //        findArticle.setAuthor(articleUpdateDto.getAuthor());
@@ -148,6 +146,48 @@ Author author = authorRepository.findById(articleUpdateDto.getAuthor().getId()).
     }
 
     @Override
+    public Page<ArticleHomeDto> findPaginated(Pageable pageable) {
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+        List<Article> articleList = articleRepository.findAll().stream()
+                .filter(x -> !x.isDeleted()).toList();
+        List<ArticleHomeDto> articleHomeDtoList = new ArrayList<>();
+        List<ArticleHomeDto> list;
+        for (Article article : articleList) {
+            ArticleHomeDto dto = new ArticleHomeDto();
+            dto.setId(article.getId());
+            dto.setName(article.getName());
+            dto.setDescription(article.getDescription());
+            dto.setPhotoUrl(article.getPhotoUrl());
+            dto.setCreatedDate(article.getCreatedDate());
+            dto.setSeoUrl(article.getSeoUrl());
+
+            AuthorDto authorDto = new AuthorDto();
+            authorDto.setId(article.getAuthor().getId());
+            authorDto.setName(article.getAuthor().getName());
+            authorDto.setImageUrl(article.getAuthor().getImageUrl());
+            authorDto.setAbout(article.getAuthor().getAbout());
+            authorDto.setSeoUrl(article.getAuthor().getSeoUrl());
+
+            dto.setAuthorDto(authorDto);
+
+            articleHomeDtoList.add(dto);
+        }
+        if (articleHomeDtoList.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, articleHomeDtoList.size());
+            list = articleHomeDtoList.subList(startItem, toIndex);
+        }
+
+        Page<ArticleHomeDto> bookPage
+                = new PageImpl<ArticleHomeDto>(list, PageRequest.of(currentPage, pageSize), articleHomeDtoList.size());
+
+        return bookPage;
+    }
+
+    @Override
     public AuthorHomeDto articleAuthor(Long id) {
         Author author = articleRepository.findById(id).orElseThrow().getAuthor();
         AuthorHomeDto authorHomeDto = modelMapper.map(author, AuthorHomeDto.class);
@@ -157,7 +197,7 @@ Author author = authorRepository.findById(articleUpdateDto.getAuthor().getId()).
     @Override
     public List<ArticleHomeDto> getCategoryArticles(Long id/*umumi blog sehifesindeki articlenin id sidir bu*/) {
         List<Article> articleList = articleRepository.findAll().stream()
-                .filter(x -> !x.isDeleted() && Objects.equals(x.getArticleCategory().getId()/*basadaki articlenin hazirkinin idsi*/,id )).toList();
+                .filter(x -> !x.isDeleted() && Objects.equals(x.getArticleCategory().getId()/*basadaki articlenin hazirkinin idsi*/, id)).toList();
         //niye equals isletdim
         List<ArticleHomeDto> categoryArticlesDtoList = new ArrayList<>();
         for (Article article : articleList) {
@@ -188,7 +228,7 @@ Author author = authorRepository.findById(articleUpdateDto.getAuthor().getId()).
     @Override
     public List<ArticleHomeDto> getAuthorArticles(Long id) {
         List<Article> articleList = articleRepository.findAll().stream()
-                .filter(x -> !x.isDeleted() && Objects.equals(x.getAuthor().getId()/*basadaki articlenin hazirkinin idsi*/,id )).toList();
+                .filter(x -> !x.isDeleted() && Objects.equals(x.getAuthor().getId()/*basadaki articlenin hazirkinin idsi*/, id)).toList();
         //niye equals isletdim
         List<ArticleHomeDto> authorArticleDtoList = new ArrayList<>();
         for (Article article : articleList) {
@@ -207,7 +247,7 @@ Author author = authorRepository.findById(articleUpdateDto.getAuthor().getId()).
             authorDto.setName(article.getAuthor().getName());
             authorDto.setImageUrl(article.getAuthor().getImageUrl());
             authorDto.setAbout(article.getAuthor().getAbout());
-authorDto.setSeoUrl(article.getAuthor().getSeoUrl());
+            authorDto.setSeoUrl(article.getAuthor().getSeoUrl());
 
             dto.setAuthorDto(authorDto);
 
@@ -216,6 +256,7 @@ authorDto.setSeoUrl(article.getAuthor().getSeoUrl());
         return authorArticleDtoList;
 
     }
+
 
 //    @Override
 //    public Page<ArticleDto> getAll(int page, int size) {
