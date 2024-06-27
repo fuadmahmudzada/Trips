@@ -2,12 +2,13 @@ package com.trips.mvc.controllers;
 
 import com.trips.mvc.dtos.articledtos.ArticleHomeDto;
 import com.trips.mvc.dtos.authordtos.AuthorDetailDto;
+import com.trips.mvc.dtos.bannerdtos.BannerDto;
+import com.trips.mvc.dtos.missiondtos.MissionDto;
+import com.trips.mvc.dtos.storydtos.StoryDto;
 import com.trips.mvc.dtos.testimonydtos.TestimonyDto;
 import com.trips.mvc.dtos.tripdtos.TripDto;
 import com.trips.mvc.dtos.tripdtos.TripHomeDto;
-import com.trips.mvc.services.ArticleService;
-import com.trips.mvc.services.TestimonyService;
-import com.trips.mvc.services.TripService;
+import com.trips.mvc.services.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,19 +32,34 @@ public class HomeController {
     private ArticleService articleService;
     @Autowired
     private TripService tripService;
+    @Autowired
+    private StoryService storyService;
+@Autowired
+private MissionService missionService;
+    @Autowired
+    private BannerService bannerService;
     @GetMapping("/")
     public String home(Model model) {
         List<List<TestimonyDto>> testimonyDtoList = testimonyService.getHomeTestimonials();
 List<TripHomeDto> tripHomeDtoList = tripService.getHomeDtos();
+        BannerDto bannerDto = bannerService.getBanner();
+        StoryDto storyDto =  storyService.getStory();
         model.addAttribute("testimonials", testimonyDtoList);
         model.addAttribute("trips", tripHomeDtoList );
+        model.addAttribute("banner", bannerDto );
+        model.addAttribute("story", storyDto);
         return "home";
     }
 
     @GetMapping("/about")
-    public String about() {
+    public String about(Model model) {
+        StoryDto storyDto = storyService.getStory();
+        model.addAttribute("story", storyDto);
+        MissionDto missionDto = missionService.getMission();
+        model.addAttribute("mission", missionDto );
         return "about";
     }
+
 //
 //    @GetMapping("/blog")
 //    public String blog() {
