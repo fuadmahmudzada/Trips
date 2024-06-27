@@ -29,15 +29,15 @@
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <div class="heading-39101 mb-5">
-                        <span class="backdrop">Story</span>
+                        <span class="backdrop" >Story</span>
                         <span class="subtitle-39191">Discover Story</span>
-                        <h3>Our Story</h3>
+                        <h3 th:text="${story.header}">Our Story</h3>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi quae expedita fugiat quo incidunt, possimus temporibus aperiam eum, quaerat sapiente.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos debitis enim a pariatur molestiae.</p>
+                    <p th:utext="${story.content}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi quae expedita fugiat quo incidunt, possimus temporibus aperiam eum, quaerat sapiente.</p>
+
                 </div>
                 <div class="col-md-6" data-aos="fade-right">
-                    <img src="images/traveler.jpg" alt="Image" class="img-fluid">
+                    <img th:src="${story.imageUrl}" alt="Image" class="img-fluid">
                 </div>
             </div>
         </div>
@@ -51,13 +51,13 @@
                     <div class="heading-39101 mb-5">
                         <span class="backdrop">Mission</span>
                         <span class="subtitle-39191">Our Mission</span>
-                        <h3>Our Mission</h3>
+                        <h3  th:text="${mission.header}">Our Mission</h3>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi quae expedita fugiat quo incidunt, possimus temporibus aperiam eum, quaerat sapiente.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos debitis enim a pariatur molestiae.</p>
+                    <p  th:text="${mission.content}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi quae expedita fugiat quo incidunt, possimus temporibus aperiam eum, quaerat sapiente.</p>
+
                 </div>
                 <div class="col-md-6 order-1" data-aos="fade-left">
-                    <img src="images/hero_1.jpg" alt="Image" class="img-fluid">
+                    <img th:src="${mission.image}" alt="Image" class="img-fluid">
                 </div>
             </div>
         </div>

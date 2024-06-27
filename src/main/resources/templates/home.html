@@ -9,12 +9,12 @@
 <body>
 <section layout:fragment="main">
     <div class="ftco-blocks-cover-1">
-        <div class="site-section-cover overlay" style="background-image: url('images/hero_1.jpg')">
+        <div class="site-section-cover overlay" th:style="'background-image: url(' + ${banner.image} + ')'">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-md-5" data-aos="fade-right">
-                        <h1 class="mb-3 text-white">Let's Enjoy The Wonders of Nature</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta veritatis in tenetur doloremque, maiores doloribus officia iste. Dolores.</p>
+                        <h1 class="mb-3 text-white" th:text="${banner.header}">Let's Enjoy The Wonders of Nature</h1>
+                        <p th:utext="${banner.content}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta veritatis in tenetur doloremque, maiores doloribus officia iste. Dolores.</p>
                         <p class="d-flex align-items-center">
                             <a href="https://vimeo.com/191947042" data-fancybox class="play-btn-39282 mr-3"><span class="icon-play"></span></a>
                             <span class="small">Watch the video</span>
@@ -33,13 +33,13 @@
                     <div class="heading-39101 mb-5">
                         <span class="backdrop">Story</span>
                         <span class="subtitle-39191">Discover Story</span>
-                        <h3>Our Story</h3>
+                        <h3 th:text="${story.header}">Our Story</h3>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi quae expedita fugiat quo incidunt, possimus temporibus aperiam eum, quaerat sapiente.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos debitis enim a pariatur molestiae.</p>
+                    <p th:utext="${story.content}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi quae expedita fugiat quo incidunt, possimus temporibus aperiam eum, quaerat sapiente.</p>
+<!--                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos debitis enim a pariatur molestiae.</p>-->
                 </div>
                 <div class="col-md-6" data-aos="fade-right">
-                    <img src="images/traveler.jpg" alt="Image" class="img-fluid">
+                    <img th:src="${story.imageUrl}" alt="Image" class="img-fluid">
                 </div>
             </div>
         </div>

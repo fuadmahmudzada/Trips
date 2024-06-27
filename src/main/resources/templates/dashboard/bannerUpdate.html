@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org"
+        layout:decorate="~{/dashboard/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Category create </title>
+</head>
+
+<body>
+<div layout:fragment="container" class="container-fluid">
+    <div>
+        <form action="/admin/banner/update" method="post">
+            <div class="form-group">
+                <input th:value="${banner.header}" class="form-control" type="text" placeholder="Title" name="header" />
+            </div>
+            <!--            <div class="form-group">-->
+            <!--                <input th:value="${article.author}" class="form-control" type="text" placeholder="Author" name="author" />-->
+            <!--            </div>-->
+
+            <input th:value="${banner.id}" class="form-control" type="hidden" placeholder="Title" name="id" />
+
+            <div class="form-group">
+                <textarea th:value="${data}"  th:text="${data}" id="myInput" class="form-control" type="text" placeholder="Content" name="content" ></textarea>
+            </div>
+
+            <div class="form-group">
+                <input th:value="${banner.image}" class="form-control" type="text" placeholder="photoUrl" name="image" />
+            </div>
+            <input type="submit" value="Update" class="btn btn-warning" />
+        </form>
+    </div>
+</div>
+</body>
+
+</html>
