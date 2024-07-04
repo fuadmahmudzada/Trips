@@ -13,7 +13,7 @@ public class TripController {
         this.tripRepository = tripRepository;
     }
 
-    @GetMapping("/trips/tripDetail/{seoUrl}/{id}")
+    @GetMapping("/home/trips/tripDetail/{seoUrl}/{id}")
     public String tripDetail(Model model, @PathVariable Long id){
         model.addAttribute("trip", tripRepository.findById(id).orElseThrow());
         return "trip-single";

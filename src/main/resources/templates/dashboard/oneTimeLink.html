@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>One-Time Link</title>
+</head>
+<body>
+<h1>One-Time Link Generated</h1>
+<p>Send this link to the marketing specialist:</p>
+<a th:href="${oneTimeLink}" th:text="${oneTimeLink}"></a>
+</body>
+</html>

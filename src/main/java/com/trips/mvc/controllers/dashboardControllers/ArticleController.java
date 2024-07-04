@@ -10,6 +10,7 @@ import com.trips.mvc.services.AuthorService;
 import com.trips.mvc.services.CategoryService;
 import com.trips.mvc.services.TestimonyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,20 +38,20 @@ public class ArticleController {
         List<ArticleDto> articles = articleService.getArticles();
         model.addAttribute("articles", articles);
         var a= 2;
-        return "dashboard/article";
+        return "dashboard/articleDir/article";
 
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/article/create")
     public String articleCreate(Model model) {
         List<ArticleCategoryDto> categories = categoryService.getAllCategories();
         List<AuthorDto> authors = authorService.getAuthors();
         model.addAttribute("categories", categories);
         model.addAttribute("authors", authors);
-        return "dashboard/articleCreate";
+        return "dashboard/articleDir/articleCreate";
 
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/admin/article/create")
     public String articleCreate(@ModelAttribute ArticleCreateDto articleCreateDto) {
         articleService.add(articleCreateDto);
@@ -59,7 +60,7 @@ public class ArticleController {
         return "redirect:/admin/article";
     }
 
-
+    @PreAuthorize("hasAuthority('MODERATOR')")
     @GetMapping("/admin/article/update/{id}")
     public String updateArticle(@PathVariable Long id, Model model) {
         ArticleUpdateDto articleUpdateDto = articleService.findUpdateArticle(id);
@@ -70,9 +71,9 @@ public class ArticleController {
         model.addAttribute("authors", authorDtos);
         data = articleUpdateDto.getContent();
         model.addAttribute("data", data);
-        return "dashboard/articleUpdate";
+        return "dashboard/articleDir/articleUpdate";
     }
-
+    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
     @PostMapping("/admin/article/update")
     public String updateArticle(@ModelAttribute ArticleUpdateDto articleUpdateDto) {
 
@@ -80,7 +81,7 @@ public class ArticleController {
 
         return "redirect:/admin/article";
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/article/remove/{id}")
     public String removeArticle(@PathVariable Long id) {
         {

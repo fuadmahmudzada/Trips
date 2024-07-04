@@ -1,16 +1,55 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Author Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .mu-author-content {
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-top: 30px;
+        }
+        .mu-author-image img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .mu-author-info {
+            margin-top: 20px;
+        }
+        .post-entry-1 {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .post-entry-1 img {
+            width: 100%;
+        }
+        .post-entry-1-contents {
+            padding: 15px;
+        }
+        .mu-author-social a {
+            margin-right: 10px;
+            color: #007bff;
+        }
+        .mu-author-social a:hover {
+            color: #0056b3;
+        }
+    </style>
 </head>
 <body>
 <section layout:fragment="main">
     <!-- Start Author Content -->
-    <div class="mu-author-content">
+    <div class="container mu-author-content">
         <div class="row">
             <div class="col-md-6">
                 <div class="mu-author-image">
@@ -20,42 +59,39 @@
             <div class="col-md-6">
                 <div class="mu-author-info">
                     <h3 th:text="${authorArticles.get(0).authorDto.name}">John Doe</h3>
-                    <p th:text="${authorArticles.get(0).authorDto.about}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo suscipit facilis ipsum ullam reiciendis odio error iste neque ratione libero rem accusamus voluptatibus, nihil unde maiores sunt nisi. Assumenda, consectetur.</p>
+                    <p th:utext="${authorArticles.get(0).authorDto.about}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo suscipit facilis ipsum ullam reiciendis odio error iste neque ratione libero rem accusamus voluptatibus, nihil unde maiores sunt nisi. Assumenda, consectetur.</p>
                     <div class="row">
                         <div th:each="article : ${authorArticles}" class="col-lg-4 col-md-6 mb-4">
-                            <div  class="post-entry-1 h-100">
-                                <a th:href="@{'/blogs/'+${article.id}+ '/' + ${article.seoUrl}}">
-                                    <img th:src="${article.photoUrl}" alt="Image"
-                                         class="img-fluid">
+                            <div class="post-entry-1 h-100">
+                                <a th:href="@{'/home/blogs/'+${article.id}+ '/' + ${article.seoUrl}}">
+                                    <img th:src="${article.photoUrl}" alt="Image" class="img-fluid">
                                 </a>
-                                <div  class="post-entry-1-contents">
-                                    <a th:href="@{'/blogs/'+${article.id}+ '/' + ${article.seoUrl}}">
-                                        <h2 th:text="${article.name}" >Lorem ipsum dolor sit amet</a></h2>
-                                    <span class="meta d-inline-block mb-3" >
-                                 <th:block th:text="${#dates.format(article.createdDate, 'MMM dd, yyyy')}">Sep 20, 2019</th:block>
-
-                                <span class="mx-2">by</span>
-                                <a th:text="${article.authorDto.name}" th:href="@{'/author/'+ ${article.authorDto.getId()} +'/'+ ${article.authorDto.seoUrl}}">Admin</a></span>
-                                    <p  th:text="${article.description}"> </p>
+                                <div class="post-entry-1-contents">
+                                    <h2><a th:href="@{'/home/blogs/'+${article.id}+ '/' + ${article.seoUrl}}" th:text="${article.name}">Lorem ipsum dolor sit amet</a></h2>
+                                    <span class="meta d-inline-block mb-3">
+                                        <th:block th:text="${#dates.format(article.createdDate, 'MMM dd, yyyy')}">Sep 20, 2019</th:block>
+                                        <span class="mx-2">by</span>
+                                        <a th:text="${article.authorDto.name}" th:href="@{'/home/author/'+ ${article.authorDto.getId()} +'/'+ ${article.authorDto.seoUrl}}">Admin</a>
+                                    </span>
+                                    <p th:text="${article.description}"></p>
                                 </div>
                             </div>
                         </div>
-
-<!--                    <img class="mu-author-sign" src="/authorAssets/images/author-signature.png" alt="Author Signature">-->
-
+                    </div>
                     <div class="mu-author-social">
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
                         <a href="#"><i class="fa fa-linkedin"></i></a>
                         <a href="#"><i class="fa fa-google-plus"></i></a>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
     <!-- End Author Content -->
-    </div>
 </section>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

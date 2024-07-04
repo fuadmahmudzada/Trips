@@ -19,14 +19,7 @@ import java.util.List;
 @Controller("DshAuthorController")
 public class AuthorController {
     @Autowired
-    private CategoryService categoryService;
-
-    @Autowired
-    private ArticleService articleService;
-    @Autowired
     private AuthorService authorService;
-    @Autowired
-    private TestimonyService testimonyService;
 
     @GetMapping("/admin/author")
     public String author(Model model){

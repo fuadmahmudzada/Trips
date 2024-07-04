@@ -21,6 +21,7 @@ public class Article {
     private String name;
 //    private String author;
     private String description;
+    @Column(name = "content", length = 10000)
     private String content;
     private String photoUrl;
     @Temporal(TemporalType.TIMESTAMP)
@@ -41,4 +42,8 @@ public class Article {
             joinColumns = @JoinColumn(name = "article_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<Tag> tags =new HashSet();
+
+
+    @OneToMany(mappedBy = "article")
+    private List<Comment> comments = new ArrayList<>();
 }

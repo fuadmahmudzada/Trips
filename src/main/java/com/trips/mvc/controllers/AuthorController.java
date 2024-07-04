@@ -20,7 +20,7 @@ public class AuthorController {
     @Autowired
     private ArticleService articleService;
 
-    @GetMapping("/author/{id}/{seoUrl}")
+    @GetMapping("/home/author/{id}/{seoUrl}")
     public String spesificAuthor(@PathVariable Long id, Model model) {
 
         List<ArticleHomeDto> authorArticleDtoList = articleService.getAuthorArticles(id);

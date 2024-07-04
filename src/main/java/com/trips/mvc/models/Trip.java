@@ -20,6 +20,7 @@ public class Trip {
     private String name;
     //    private String author;
     private String description;
+    @Column(name = "content", length = 10000)
     private String content;
     private String imageUrl;
     private String backImageUrl;

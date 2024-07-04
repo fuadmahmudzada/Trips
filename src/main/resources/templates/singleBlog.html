@@ -2,7 +2,8 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout}" >
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -35,133 +36,45 @@
                 <div class="col-md-8 blog-content">
                     <p th:utext="${article.content}"></p>
 
-                    <div class="pt-5">
-                        <h3 class="mb-5">6 Comments</h3>
-                        <ul class="comment-list">
-                            <li class="comment">
-                                <div class="vcard bio">
-                                    <img src="/images/person_2.jpg" alt="Image">
-                                </div>
-                                <div class="comment-body">
-                                    <h3></h3>
-                                    <div class="meta">January 9, 2018 at 2:21pm</div>
-                                    <p>When she reached the first hills of the Italic Mountains, she had a last view
-                                        back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet
-                                        Village and the subline of her own road, the Line Lane. Pityful a rethoric
-                                        question ran over her cheek, then she continued her way.</p>
-                                    <p><a href="#" class="reply">Reply</a></p>
-                                </div>
-                            </li>
 
-                            <li class="comment">
-                                <div class="vcard bio">
-                                    <img src="/images/person_3.jpg" alt="Image">
-                                </div>
-                                <div class="comment-body">
-                                    <h3>Chris Meyer</h3>
-                                    <div class="meta">January 9, 2018 at 2:21pm</div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
-                                        necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim
-                                        sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                    <p><a href="#" class="reply">Reply</a></p>
-                                </div>
+                    <div class="custombox clearfix">
+                        <h4 th:text="${comments.size()}+' Comments'" class="small-title"> </h4>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="comments-list">
 
-                                <ul class="children">
-                                    <li class="comment">
-                                        <div class="vcard bio">
-                                            <img src="/images/person_5.jpg" alt="Image">
+                                    <div th:each="comment : ${comments}" class="media">
+                                        <a class="media-left" href="#">
+                                            <img src="upload/author.jpg" alt="" class="rounded-circle">
+                                        </a>
+                                        <div class="media-body">
+                                            <h4 th:text="${comment.fullName}" class="media-heading user_name">Amanda Martines <small>5 days ago</small></h4>
+                                            <p th:text="${comment.content}">Exercitation photo booth stumptown tote bag Banksy, elit small batch freegan sed. Craft beer elit seitan exercitation, photo booth et 8-bit kale chips proident chillwave deep v laborum. Aliquip veniam delectus, Marfa eiusmod Pinterest in do umami readymade swag. Selfies iPhone Kickstarter, drinking vinegar jean.</p>
+                                            <a href="#" class="btn btn-primary btn-sm">Reply</a>
                                         </div>
-                                        <div class="comment-body">
-                                            <h3>Chintan Patel</h3>
-                                            <div class="meta">January 9, 2018 at 2:21pm</div>
-                                            <p>Far far away, behind the word mountains, far from the countries Vokalia
-                                                and Consonantia, there live the blind texts. Separated they live in
-                                                Bookmarksgrove right at the coast of the Semantics, a large language
-                                                ocean.</p>
-                                            <p><a href="#" class="reply">Reply</a></p>
-                                        </div>
+                                    </div>
 
+                                </div>
+                            </div><!-- end col -->
+                        </div><!-- end row -->
+                    </div><!-- end custom-box -->
 
-                                        <ul class="children">
-                                            <li class="comment">
-                                                <div class="vcard bio">
-                                                    <img src="/images/person_1.jpg" alt="Image">
-                                                </div>
-                                                <div class="comment-body">
-                                                    <h3>Jean Doe</h3>
-                                                    <div class="meta">January 9, 2018 at 2:21pm</div>
-                                                    <p>A small river named Duden flows by their place and supplies it
-                                                        with the necessary regelialia. It is a paradisematic country, in
-                                                        which roasted parts of sentences fly into your mouth.</p>
-                                                    <p><a href="#" class="reply">Reply</a></p>
-                                                </div>
+                    <hr class="invis1">
 
-                                                <ul class="children">
-                                                    <li class="comment">
-                                                        <div class="vcard bio">
-                                                            <img src="/images/person_4.jpg" alt="Image">
-                                                        </div>
-                                                        <div class="comment-body">
-                                                            <h3>Ben Afflick</h3>
-                                                            <div class="meta">January 9, 2018 at 2:21pm</div>
-                                                            <p>Even the all-powerful Pointing has no control about the
-                                                                blind texts it is an almost unorthographic life One day
-                                                                however a small line of blind text by the name of Lorem
-                                                                Ipsum decided to leave for the far World of Grammar.</p>
-                                                            <p><a href="#" class="reply">Reply</a></p>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li class="comment">
-                                <div class="vcard bio">
-                                    <img src="/images/person_1.jpg" alt="Image">
-                                </div>
-                                <div class="comment-body">
-                                    <h3>Jean Doe</h3>
-                                    <div class="meta">January 9, 2018 at 2:21pm</div>
-                                    <p>Even the all-powerful Pointing has no control about the blind texts it is an
-                                        almost unorthographic life One day however a small line of blind text by the
-                                        name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
-                                    <p><a href="#" class="reply">Reply</a></p>
-                                </div>
-                            </li>
-                        </ul>
-                        <!-- END comment-list -->
-
-                        <div class="comment-form-wrap pt-5">
-                            <h3 class="mb-5">Leave a comment</h3>
-                            <form action="#" class="">
-                                <div class="form-group">
-                                    <label for="name">Name *</label>
-                                    <input type="text" class="form-control" id="name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">Email *</label>
-                                    <input type="email" class="form-control" id="email">
-                                </div>
-                                <div class="form-group">
-                                    <label for="website">Website</label>
-                                    <input type="url" class="form-control" id="website">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="message">Message</label>
-                                    <textarea name="" id="message" cols="30" rows="10" class="form-control"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" value="Post Comment" class="btn btn-primary btn-md text-white">
-                                </div>
-
-                            </form>
+                    <div  class="custombox clearfix">
+                        <h4 class="small-title">Leave a Reply</h4>
+                        <div  sec:authorize="isAuthenticated()" class="row">
+                            <div class="col-lg-12">
+                                <form  method="post" class="form-wrapper">
+                                    <textarea name="content" class="form-control" placeholder="Your comment"></textarea>
+                                    <button type="submit" class="btn btn-primary">Submit Comment</button>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-
+                        <div sec:authorize="!isAuthenticated()">
+                            <a class="btn btn-primary" href="/login">Login</a>
+                        </div>
+                </div>
                 </div>
                 <div class="col-md-4 sidebar">
                     <div class="sidebar-box">
@@ -177,7 +90,7 @@
                             <h3>Categories</h3>
 
                             <li>
-                                <a  th:href="@{'/specificCategory/' + ${article.getCategory().getId()} + '/' + ${article.getCategory().getSeoUrl()}}">
+                                <a  th:href="@{'/home/specificCategory/' + ${article.getCategory().getId()} + '/' + ${article.getCategory().getSeoUrl()}}">
                                     <th:block th:text="${article.category.name}">Creatives</th:block>
                                     <span th:text="'(' + ${categoryArticles.size()+')'}">(12)
                                     </span>
@@ -196,7 +109,7 @@
                         <p th:text="${author.description}">Even the all-powerful Pointing has no control about the blind texts it is an almost
                             unorthographic life One day however a small line of blind text by the name of Lorem Ipsum
                             decided to leave for the far World of Grammar.</p>
-                        <p><a th:href="@{'/author/'+ ${author.getId()} +'/'+ ${author.seoUrl}}" class="btn btn-primary btn-md text-white">Read More</a></p>
+                        <p><a th:href="@{'/home/author/'+ ${author.getId()} +'/'+ ${author.seoUrl}}" class="btn btn-primary btn-md text-white">Read More</a></p>
                     </div>
 
 <!--                    <div class="sidebar-box">-->

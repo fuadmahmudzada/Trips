@@ -1,10 +1,6 @@
 package com.trips.mvc.services.impls;
 
-import com.trips.mvc.dtos.articledtos.ArticleDto;
-import com.trips.mvc.dtos.articledtos.ArticleCreateDto;
-import com.trips.mvc.dtos.articledtos.ArticleDetailDto;
-import com.trips.mvc.dtos.articledtos.ArticleHomeDto;
-import com.trips.mvc.dtos.articledtos.ArticleUpdateDto;
+import com.trips.mvc.dtos.articledtos.*;
 import com.trips.mvc.dtos.authordtos.AuthorDto;
 
 import com.trips.mvc.dtos.authordtos.AuthorHomeDto;
@@ -84,6 +80,12 @@ public class ArticleServiceImpl implements ArticleService {
         findArticle.setAuthor(author);
 //        findArticle.setAuthor(author);
         articleRepository.saveAndFlush(findArticle);
+    }
+    @Override
+    public ArticleDetailDto getDetail(Long id) {
+        Article article = articleRepository.findById(id).orElseThrow();
+        ArticleDetailDto result = modelMapper.map(article, ArticleDetailDto.class);
+        return result;
     }
 
     @Override

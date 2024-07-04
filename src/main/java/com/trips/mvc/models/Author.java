@@ -21,6 +21,7 @@ public class Author {
     private String name;
     private String description;
     private String imageUrl;
+    @Column(name = "about", length = 10000)
     private String about;
     @Column(nullable = false, columnDefinition = "boolean default false")
     private boolean isDeleted;
