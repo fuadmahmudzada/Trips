@@ -35,7 +35,7 @@ public class TestimonyServiceImpl implements TestimonyService {
     @Override
     public List<List<TestimonyDto>> getHomeTestimonials() {
 //        List<List<String>> listOfLists = new ArrayList<List<String>>();
-        int[][] oddNumbers = { {1, 3, 5, 7}, {9, 11, 13, 15}, {17, 19, 21} };
+
 
 //        List<List<TestimonyDto>> testimonyDtoList1 = testimonyRepository.findAll().stream()
 //                .filter(x -> x.isDeleted() == false)
@@ -66,7 +66,6 @@ public class TestimonyServiceImpl implements TestimonyService {
 
             listOfLists.add( new ArrayList<TestimonyDto>());
             for(int j=0;j<2;j++){
-
                 count+=1;
                 if(count<=testimonyDtoList.size()-1) {
                     listOfLists.get(i).add(j, testimonyDtoList.get(count));

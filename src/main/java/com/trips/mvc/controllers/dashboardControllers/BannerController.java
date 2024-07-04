@@ -12,10 +12,7 @@ import com.trips.mvc.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +21,10 @@ public class BannerController {
     @Autowired
     private BannerService bannerService;
     private static String data;
+
+
+    @Autowired
+    private OneTimeTokenService oneTimeTokenService;
     @GetMapping("/admin/banner")
     public String index(Model model) {
         BannerDto banner = bannerService.getBanner();
@@ -68,5 +69,39 @@ public class BannerController {
 
         return "redirect:/admin/banner";
     }
+    @GetMapping("/admin/banner/generate-link")
+    public String generateOneTimeLink(Model model) {
+        String token = oneTimeTokenService.generateToken();
+        String link = "http://localhost:5050/banner/update/" + token;
+        model.addAttribute("oneTimeLink", link);
+        return "dashboard/oneTimeLink";
+    }
 
+    @GetMapping("/banner/update/{token}")
+    public String showUpdateForm(@PathVariable String token, Model model) {
+
+            BannerDto banner = bannerService.getBanner();
+            model.addAttribute("banner", banner);
+            model.addAttribute("token", token);
+            return "dashboard/bannerTokenUpdate";
+
+    }
+
+    @PostMapping("/banner/update/{token}")
+    public String updateBannerTitle(@PathVariable String token, @RequestParam String newTitle) {
+        if (oneTimeTokenService.validateToken2(token)) {
+            BannerDto bannerDto = bannerService.getBanner();
+
+
+            BannerUpdateDto bannerUpdateDto = new BannerUpdateDto();
+            bannerUpdateDto.setId(bannerDto.getId());
+            bannerUpdateDto.setHeader(newTitle);
+            bannerUpdateDto.setContent(bannerDto.getContent());
+            bannerUpdateDto.setImage(bannerDto.getImage());
+
+            bannerService.updateBanner(bannerUpdateDto);
+            return "redirect:/home";
+        }
+        return "redirect:/admin";
+    }
 }

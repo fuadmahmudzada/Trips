@@ -31,7 +31,7 @@ public class BlogHomeController {
     private CategoryService categoryService; // 123
     @Autowired
     private ArticleRepository articleRepository;
-    @GetMapping("/blog")
+    @GetMapping("/home/blog")
     public String index(  Model model, HttpServletRequest request,
                           @RequestParam(name = "page", defaultValue = "1") Optional<Integer> page,
                           @RequestParam(name = "size", defaultValue = "3") Optional<Integer> size){

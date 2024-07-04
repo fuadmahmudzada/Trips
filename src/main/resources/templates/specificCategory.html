@@ -34,18 +34,18 @@
             <div class="row">
                 <div th:each="article : ${categoryArticles}" class="col-lg-4 col-md-6 mb-4">
                     <div  class="post-entry-1 h-100">
-                        <a th:href="@{'/blogs/'+${article.id}+ '/' + ${article.seoUrl}}">
+                        <a th:href="@{'/home/blogs/'+${article.id}+ '/' + ${article.seoUrl}}">
                             <img th:src="${article.photoUrl}" alt="Image"
                                  class="img-fluid">
                         </a>
                         <div  class="post-entry-1-contents">
-                            <a th:href="@{'/blogs/'+${article.id}+ '/' + ${article.seoUrl}}">
+                            <a th:href="@{'/home/blogs/'+${article.id}+ '/' + ${article.seoUrl}}">
                                 <h2 th:text="${article.name}" >Lorem ipsum dolor sit amet</a></h2>
                             <span class="meta d-inline-block mb-3" >
                                  <th:block th:text="${#dates.format(article.createdDate, 'MMM dd, yyyy')}">Sep 20, 2019</th:block>
 
                                 <span class="mx-2">by</span>
-                                <a th:text="${article.authorDto.name}" th:href="@{'/author/'+ ${article.authorDto.getId()} +'/'+ ${article.authorDto.seoUrl}}">Admin</a></span>
+                                <a th:text="${article.authorDto.name}" th:href="@{'/home/author/'+ ${article.authorDto.getId()} +'/'+ ${article.authorDto.seoUrl}}">Admin</a></span>
                             <p  th:text="${article.description}"> </p>
                         </div>
                     </div>

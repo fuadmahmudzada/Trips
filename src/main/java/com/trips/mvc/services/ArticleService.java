@@ -1,10 +1,6 @@
 package com.trips.mvc.services;
 
-import com.trips.mvc.dtos.articledtos.ArticleDto;
-import com.trips.mvc.dtos.articledtos.ArticleCreateDto;
-import com.trips.mvc.dtos.articledtos.ArticleDetailDto;
-import com.trips.mvc.dtos.articledtos.ArticleHomeDto;
-import com.trips.mvc.dtos.articledtos.ArticleUpdateDto;
+import com.trips.mvc.dtos.articledtos.*;
 import com.trips.mvc.dtos.authordtos.AuthorHomeDto;
 import com.trips.mvc.models.Article;
 import org.springframework.data.domain.Page;
@@ -20,10 +16,12 @@ public interface ArticleService {
     ArticleUpdateDto findUpdateArticle(Long id);
     void removeArticle(Long articleId);
     ArticleDetailDto articleDetail(Long id);
-    List<ArticleHomeDto>    getHomeArticles();
+    List<ArticleHomeDto>getHomeArticles();
     AuthorHomeDto articleAuthor(Long id);
     List<ArticleHomeDto> getCategoryArticles(Long id);
     List<ArticleHomeDto> getAuthorArticles(Long id);
 
     Page<ArticleHomeDto> findPaginated(Pageable pageable);
+
+    ArticleDetailDto getDetail(Long id);
 }

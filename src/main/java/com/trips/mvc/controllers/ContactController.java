@@ -2,6 +2,8 @@ package com.trips.mvc.controllers;
 
 import com.trips.mvc.dtos.ContactDto;
 import com.trips.mvc.dtos.SubscribeDto;
+import com.trips.mvc.models.SubscribeUsers;
+import com.trips.mvc.repositories.EmailRepository;
 import com.trips.mvc.services.EmailService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
@@ -19,8 +21,10 @@ public class ContactController {
     private EmailService emailService;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private EmailRepository emailRepository;
 
-    @PostMapping("/contact")
+    @PostMapping("home/contact")
     public String sendEmail(@ModelAttribute ContactDto contactDto) {
         emailService.sendMessage(contactDto);
         return "redirect:/contact";
@@ -30,14 +34,15 @@ public class ContactController {
 //        return "contact";
 //    }
 
-    @PostMapping("/subscription")
+    @PostMapping("/home/subscription")
     public String subscribe(@ModelAttribute SubscribeDto subscribeDto, HttpServletRequest request, Model model) {
         emailService.subscribe(subscribeDto);
         model.addAttribute("subscriptionSuccess", true);
 
+        emailRepository.save(modelMapper.map(subscribeDto, SubscribeUsers.class));
         String currentUrl = request.getHeader("Referer");
         if (currentUrl == null || currentUrl.isEmpty()) {
-            currentUrl = "/"; // Default to home page if Referer is not available
+            currentUrl = "/home";
         }
 
         return "redirect:" + currentUrl;
